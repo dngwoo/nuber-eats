@@ -1,13 +1,15 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
-import { RestaurantModule } from './restaurant/restaurant.module';
+import { join } from 'path';
+import { RestaurantsModule } from './restaurants/restaurants.module';
 
 @Module({
   imports: [
+    RestaurantsModule,
     GraphQLModule.forRoot({
-      autoSchemaFile: true,
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      sortSchema: true,
     }),
-    RestaurantModule,
   ],
   controllers: [],
   providers: [],
