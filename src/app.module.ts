@@ -13,11 +13,11 @@ import { RestaurantsModule } from './restaurants/restaurants.module';
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'dngwoo',
-      password: '12345',
-      database: 'nuber-eats',
+      host: process.env.DB_HOST,
+      port: +process.env.DB_PORT,
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE,
       synchronize: true, // 데이터베이스를 나의 모듈의 현재상태로 마이그레이션
       logging: true, // 데이터베이스에서 무슨 일이 일어나는지 콘솔에 표시
     }),
