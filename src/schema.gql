@@ -12,6 +12,7 @@ type Query {
 
 type Restaurant {
   address: String!
+  id: Float!
   name: String!
   ownersName: String!
   veganOnly: Boolean!

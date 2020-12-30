@@ -4,6 +4,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as Joi from 'joi';
 import { join } from 'path';
+import { Restaurant } from './restaurants/entities/restaurant.entity';
 import { RestaurantsModule } from './restaurants/restaurants.module';
 
 @Module({
@@ -27,8 +28,9 @@ import { RestaurantsModule } from './restaurants/restaurants.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      synchronize: true, // 데이터베이스를 나의 모듈의 현재상태로 마이그레이션
+      synchronize: process.env.NODE_ENV !== 'prod', // 데이터베이스를 나의 모듈의 현재상태로 마이그레이션
       logging: true, // 데이터베이스에서 무슨 일이 일어나는지 콘솔에 표시
+      entities: [Restaurant],
     }),
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
