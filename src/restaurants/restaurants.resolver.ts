@@ -14,8 +14,17 @@ export class RestaurantsResolver {
   }
 
   @Mutation(() => Boolean)
-  createRestaurant(@Args() createRestaurantArgs: CreateRestaurantDto): boolean {
-    console.log(createRestaurantArgs);
-    return true;
+  // async를 쓸 때는 return type을 줄 때 항상 Promise<value> 를 써줘야 한다.
+  async createRestaurant(
+    @Args() CreateRestaurantDto: CreateRestaurantDto,
+  ): Promise<boolean> {
+    try {
+      // restaurants.service.ts에 있는 createRestaurant 메서드 이용
+      await this.restaurantService.createRestaurant(CreateRestaurantDto);
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
   }
 }
