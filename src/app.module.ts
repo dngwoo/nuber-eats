@@ -29,8 +29,8 @@ import { RestaurantsModule } from './restaurants/restaurants.module';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       synchronize: process.env.NODE_ENV !== 'prod', // 데이터베이스를 나의 모듈의 현재상태로 마이그레이션
-      logging: true, // 데이터베이스에서 무슨 일이 일어나는지 콘솔에 표시
-      entities: [Restaurant],
+      logging: process.env.NODE_ENV !== 'prod', // 데이터베이스에서 무슨 일이 일어나는지 콘솔에 표시
+      entities: [Restaurant], // 실제 DB Entity 생성할 때 사용
     }),
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
